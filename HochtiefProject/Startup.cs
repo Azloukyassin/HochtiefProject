@@ -32,7 +32,7 @@ namespace HochtiefProject
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddDbContext<HochtiefDBContext>(options =>
             {
-                options.(configuration.GetConnectionString("SqlVicon"));
+                options.(configuration.GetConnectionString("SqlVicon")); // Noch Fehler hier im Code 04.06 
             }); 
 
         }
