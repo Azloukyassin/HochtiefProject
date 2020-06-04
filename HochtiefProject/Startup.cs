@@ -7,13 +7,21 @@ using HochtiefProject.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace HochtiefProject
 {
     public class Startup
     {
+        private readonly IConfiguration configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -22,6 +30,10 @@ namespace HochtiefProject
             services.AddMvc();
             services.AddSingleton<ILabourRepostroy<Labour_Test>, LabourRepostory>();
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddDbContext<HochtiefDBContext>(options =>
+            {
+                options.(configuration.GetConnectionString("SqlVicon"));
+            }); 
 
         }
 
